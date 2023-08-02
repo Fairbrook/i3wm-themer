@@ -1,2 +1,2 @@
 -i https://pypi.org/simple/
-pyyaml==5.4
+pyyaml>=5.4

@@ -2,6 +2,7 @@
 
 ### 20180515 Script written and fully commented by James Shane ( github.com/jamesshane )
 ### 20200408 Script refactored by Johannes Pertl ( github.com/JohannesPertl )
+set -e
 
 
 function preparation() {
@@ -88,13 +89,11 @@ function install_xcb() {
 function refresh_shared_libraries() {
     #cat > /etc/ld.so.conf.d/i3.conf
     #/usr/local/lib/
-
     sudo ldconfig
     sudo ldconfig -p
 }
 
 function install_i3_gaps() {
-
     git clone https://www.github.com/Airblader/i3.git i3-gaps
     # shellcheck disable=SC2164
     cd i3-gaps
@@ -108,27 +107,6 @@ function install_i3_gaps() {
     # ls -l /usr/bin/i3
     cd ../..
     rm -fr i3-gaps
-
-}
-
-function install_fonts_awesome() {
-    # Added PYTHONDONTWRITEBYTECODE to prevent __pycache__
-    export PYTHONDONTWRITEBYTECODE=1
-    sudo -H pip3 install -r requirements.txt
-
-    [ -d /usr/share/fonts/opentype ] || sudo mkdir /usr/share/fonts/opentype
-    sudo git clone https://github.com/adobe-fonts/source-code-pro.git /usr/share/fonts/opentype/scp
-    mkdir fonts
-    # shellcheck disable=SC2164
-    cd fonts
-    wget https://use.fontawesome.com/releases/v5.0.13/fontawesome-free-5.0.13.zip
-    unzip fontawesome-free-5.0.13.zip
-    # shellcheck disable=SC2164
-    cd fontawesome-free-5.0.13
-    sudo cp use-on-desktop/* /usr/share/fonts
-    sudo fc-cache -f -v
-    cd ../..
-    rm -fr fonts
 }
 
 function install_polybar() {
